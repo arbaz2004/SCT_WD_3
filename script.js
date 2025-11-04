@@ -10,7 +10,6 @@ let isXNext = true;
 let vsComputer = false;
 let winner = null;
 
-// Profile data
 let profile = JSON.parse(localStorage.getItem("profile")) || { name: "Player 1", avatar: "", totalGames: 0 };
 let scores = JSON.parse(localStorage.getItem("scores")) || { X: 0, O: 0, Draws: 0 };
 let recent = JSON.parse(localStorage.getItem("recent")) || [];
@@ -51,7 +50,7 @@ function handleClick(i) {
   updateUI();
 
   if (vsComputer && !isXNext && !winner) {
-    setTimeout(aiMove, 500);
+    setTimeout(aiMove, 400);
   }
 }
 
