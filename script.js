@@ -95,8 +95,16 @@ function updateUI() {
   totalGamesEl.textContent = profile.totalGames;
   avatarEl.src = profile.avatar || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
+  statusEl.classList.remove("winner-announce", "draw-announce");
+
   if (winner) {
-    statusEl.textContent = winner === "Draw" ? "🤝 It's a Draw!" : `🏆 Winner: ${winner}`;
+    if (winner === "Draw") {
+      statusEl.textContent = "🤝 It's a Draw!";
+      statusEl.classList.add("draw-announce");
+    } else {
+      statusEl.textContent = `🏆 Winner: ${winner}`;
+      statusEl.classList.add("winner-announce");
+    }
   } else {
     statusEl.textContent = `Turn: ${isXNext ? "X" : "O"}`;
   }
@@ -105,6 +113,7 @@ function updateUI() {
     .map((r) => `<li><span>${r.winner === "Draw" ? "🤝 Draw" : `🏆 ${r.winner} Won`}</span><span>${r.time}</span></li>`)
     .join("");
 }
+
 
 function restartGame() {
   board = Array(9).fill(null);
