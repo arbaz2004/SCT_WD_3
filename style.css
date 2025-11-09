@@ -184,13 +184,43 @@ input[type="file"] {
   display: flex;
   justify-content: space-between;
 }
-@keyframes glow {
-  0% { box-shadow: 0 0 10px #fff, 0 0 20px #00f5ff, 0 0 30px #00f5ff; }
-  50% { box-shadow: 0 0 20px #fff, 0 0 40px #00f5ff, 0 0 60px #00f5ff; }
-  100% { box-shadow: 0 0 10px #fff, 0 0 20px #00f5ff, 0 0 30px #00f5ff; }
+/* ✨ Winner announcement highlight */
+.status-text {
+  margin-top: 5px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
-.winner-glow {
-  animation: glow 1s ease-in-out infinite alternate;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
+/* Glowing animation for winner announcement */
+.winner-announce {
+  color: #00f5ff;
+  text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff;
+  animation: winnerPulse 1s ease-in-out infinite alternate;
+  font-size: 1.7rem;
+  letter-spacing: 1px;
 }
+
+@keyframes winnerPulse {
+  0% {
+    text-shadow: 0 0 8px #00f5ff, 0 0 15px #00f5ff, 0 0 25px #00f5ff;
+    transform: scale(1);
+  }
+  100% {
+    text-shadow: 0 0 15px #00f5ff, 0 0 35px #00f5ff, 0 0 50px #00f5ff;
+    transform: scale(1.05);
+  }
+}
+
+/* Draw announcement style */
+.draw-announce {
+  color: #ffcc70;
+  text-shadow: 0 0 10px #ffcc70, 0 0 20px #ffcc70;
+  animation: drawGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes drawGlow {
+  0% { text-shadow: 0 0 8px #ffcc70, 0 0 15px #ffcc70; }
+  100% { text-shadow: 0 0 20px #ffcc70, 0 0 35px #ffcc70; }
+}
+
