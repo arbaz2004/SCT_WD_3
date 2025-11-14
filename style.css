@@ -1,226 +1,155 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
+/* ——————————————————————————————————
+   GLOBAL PAGE STYLE
+—————————————————————————————————— */
 body {
-  background: radial-gradient(circle at top, #0f0c29, #302b63, #24243e);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    background: #0d0f17;
+    color: white;
 }
 
-.container {
-  text-align: center;
-  max-width: 650px;
-  width: 100%;
-  background: rgba(20, 20, 50, 0.85);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+.wrapper {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-h1 {
-  font-size: 2.3rem;
-  margin-bottom: 20px;
-  background: linear-gradient(45deg, #ff6ec4, #7873f5);
-  -webkit-background-clip: text;
-  color: transparent;
+
+/* ——————————————————————————————————
+   SIDEBAR (LEFT CARD)
+—————————————————————————————————— */
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 25px;
 }
 
-/* Profile Section */
-.profile-card {
-  background: rgba(60, 60, 100, 0.8);
-  border-radius: 15px;
-  padding: 15px;
-  margin-bottom: 20px;
+.logo {
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
-.profile-card h2 {
-  color: #ff90e0;
-  margin-bottom: 10px;
+.logo span {
+    color: #42a5ff;
 }
 
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid #a16eff;
-  object-fit: cover;
-  margin: 10px auto;
-  display: block;
+.section {
+    margin-bottom: 25px;
 }
 
-input[type="file"] {
-  display: block;
-  margin: 5px auto 10px;
-  color: #fff;
-  text-align: center;
+.section h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    opacity: 0.85;
 }
 
-.hidden {
-  display: none;
+
+/* ——————————————————————————————————
+   BUTTONS
+—————————————————————————————————— */
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #22252f;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.edit-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+.btn.small {
+    padding: 8px 14px;
 }
 
-.profile-card button {
-  background: linear-gradient(45deg, #ff6ec4, #7873f5);
-  border: none;
-  padding: 8px 15px;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 500;
+.btn-row {
+    display: flex;
+    gap: 10px;
 }
 
-.profile-card button:hover {
-  opacity: 0.8;
+.btn.active {
+    background: #3b82f6;
 }
 
-/* Scoreboard */
-.scoreboard {
-  display: flex;
-  justify-content: space-around;
-  background: rgba(70, 70, 120, 0.7);
-  border-radius: 15px;
-  margin: 20px 0;
-  padding: 10px;
+.btn:hover {
+    background: #2c2f38;
 }
 
-.scoreboard div {
-  width: 30%;
-  background: rgba(90, 90, 150, 0.6);
-  padding: 8px;
-  border-radius: 10px;
+.btn.full {
+    width: 100%;
+    margin-top: 10px;
 }
 
-.scoreboard h3 {
-  color: #ffbdf0;
-  margin-bottom: 5px;
+.btn.danger {
+    background: #ff4d5a;
 }
 
-/* Board */
+.btn.danger:hover {
+    background: #e43c49;
+}
+
+
+/* ——————————————————————————————————
+   GAME AREA (RIGHT SIDE)
+—————————————————————————————————— */
+.game-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+}
+
+.status {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+
+/* ——————————————————————————————————
+   BOARD (BIG 540×540 GRID)
+—————————————————————————————————— */
 .board {
-  display: grid;
-  grid-template-columns: repeat(3, 110px);
-  grid-gap: 12px;
-  justify-content: center;
-  margin: 20px auto;
+    width: 540px;
+    height: 540px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
+
+/* ——————————————————————————————————
+   CELLS
+—————————————————————————————————— */
 .cell {
-  width: 110px;
-  height: 110px;
-  font-size: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-  cursor: pointer;
-  color: white;
-  font-weight: bold;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: 0.2s ease;
+    background: #1c1f27;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 70px;
+    cursor: pointer;
+
+    transition: 0.2s;
 }
 
 .cell:hover {
-  transform: scale(1.07);
+    background: #262a33;
 }
 
-/* Buttons */
-.buttons button {
-  margin: 8px;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(45deg, #ff6ec4, #7873f5);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
 
-.buttons button:hover {
-  opacity: 0.85;
-}
-
-/* Status + Recent */
-#status {
-  margin: 15px 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-.recent {
-  background: rgba(60, 60, 90, 0.8);
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 15px;
-}
-
-.recent ul {
-  list-style: none;
-  padding: 10px;
-}
-
-.recent li {
-  background: rgba(90, 90, 120, 0.8);
-  border-radius: 8px;
-  padding: 8px;
-  margin-bottom: 6px;
-  display: flex;
-  justify-content: space-between;
-}
-/* ✨ Winner announcement highlight */
-.status-text {
-  margin-top: 5px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  transition: all 0.3s ease;
-}
-
-/* Glowing animation for winner announcement */
-.winner-announce {
-  color: #00f5ff;
-  text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff;
-  animation: winnerPulse 1s ease-in-out infinite alternate;
-  font-size: 1.7rem;
-  letter-spacing: 1px;
-}
-
-@keyframes winnerPulse {
-  0% {
-    text-shadow: 0 0 8px #00f5ff, 0 0 15px #00f5ff, 0 0 25px #00f5ff;
-    transform: scale(1);
-  }
-  100% {
-    text-shadow: 0 0 15px #00f5ff, 0 0 35px #00f5ff, 0 0 50px #00f5ff;
+/* ——————————————————————————————————
+   WIN HIGHLIGHT EFFECT
+—————————————————————————————————— */
+.win {
+    background: rgba(0, 255, 120, 0.25) !important;
+    color: #00ff99 !important;
     transform: scale(1.05);
-  }
 }
-
-/* Draw announcement style */
-.draw-announce {
-  color: #ffcc70;
-  text-shadow: 0 0 10px #ffcc70, 0 0 20px #ffcc70;
-  animation: drawGlow 1s ease-in-out infinite alternate;
-}
-
-@keyframes drawGlow {
-  0% { text-shadow: 0 0 8px #ffcc70, 0 0 15px #ffcc70; }
-  100% { text-shadow: 0 0 20px #ffcc70, 0 0 35px #ffcc70; }
-}
-
