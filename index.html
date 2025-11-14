@@ -1,75 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Neon Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<div class="wrapper">
-
+  <div class="wrapper">
     <!-- SIDEBAR -->
     <div class="sidebar">
-        <h2 class="logo">🎮 Tic-Tac-Toe</h2>
+      <h2 class="logo">🎮 Tic-Tac-Toe</h2>
 
-        <div class="section">
-            <h3>Mode</h3>
-            <div class="btn-row">
-                <button id="pvpBtn" class="btn active">Vs Player</button>
-                <button id="aiBtn" class="btn">Vs Computer</button>
-            </div>
+      <div class="section">
+        <h3>Mode</h3>
+        <div class="btn-row" id="modeRow">
+          <button id="pvpBtn" class="btn mode-btn active" data-mode="pvp">Vs Player</button>
+          <button id="aiBtn" class="btn mode-btn" data-mode="ai">Vs Computer</button>
         </div>
+      </div>
 
-        <div class="section">
-            <h3>AI Difficulty</h3>
-            <div class="btn-row">
-                <button class="btn small diff active" data-diff="easy">Easy</button>
-                <button class="btn small diff" data-diff="medium">Medium</button>
-                <button class="btn small diff" data-diff="hard">Hard</button>
-            </div>
+      <div class="section">
+        <h3>AI Difficulty</h3>
+        <div class="btn-row" id="diffRow">
+          <button class="btn small diff-btn active" data-diff="easy">Easy</button>
+          <button class="btn small diff-btn" data-diff="medium">Medium</button>
+          <button class="btn small diff-btn" data-diff="hard">Hard</button>
         </div>
+      </div>
 
-        <div class="section">
-            <h3>Starting</h3>
-            <div class="btn-row">
-                <button id="startX" class="btn active">X</button>
-                <button id="startO" class="btn">O</button>
-            </div>
+      <div class="section">
+        <h3>Starting</h3>
+        <div class="btn-row" id="startRow">
+          <button id="startX" class="btn start-btn active" data-start="X">X</button>
+          <button id="startO" class="btn start-btn" data-start="O">O</button>
         </div>
+      </div>
 
-        <div class="section scoreboard">
-            <h3>Scoreboard</h3>
-            <p>X Wins: <span id="scoreX">0</span></p>
-            <p>O Wins: <span id="scoreO">0</span></p>
-            <p>Draws: <span id="scoreD">0</span></p>
-        </div>
+      <div class="section scoreboard">
+        <h3>Scoreboard</h3>
+        <p>X Wins: <span id="scoreX">0</span></p>
+        <p>O Wins: <span id="scoreO">0</span></p>
+        <p>Draws: <span id="scoreD">0</span></p>
+      </div>
 
-        <div class="section">
-            <button id="resetBtn" class="btn full danger">Reset</button>
-        </div>
+      <div class="section">
+        <button id="resetBtn" class="btn full danger">Reset</button>
+      </div>
     </div>
 
     <!-- GAME AREA -->
     <div class="game-area">
-        <p class="status" id="statusText">Player X’s turn</p>
+      <p class="status" id="statusText">Player X's turn</p>
 
-        <div class="board" id="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
-        </div>
+      <div class="board" id="board" aria-label="tic tac toe board">
+        <div class="cell" data-index="0" role="button" tabindex="0"></div>
+        <div class="cell" data-index="1" role="button" tabindex="0"></div>
+        <div class="cell" data-index="2" role="button" tabindex="0"></div>
+        <div class="cell" data-index="3" role="button" tabindex="0"></div>
+        <div class="cell" data-index="4" role="button" tabindex="0"></div>
+        <div class="cell" data-index="5" role="button" tabindex="0"></div>
+        <div class="cell" data-index="6" role="button" tabindex="0"></div>
+        <div class="cell" data-index="7" role="button" tabindex="0"></div>
+        <div class="cell" data-index="8" role="button" tabindex="0"></div>
+      </div>
     </div>
+  </div>
 
-</div>
-
-<script src="script.js"></script>
+  <!-- script loaded at end and guarded by DOMContentLoaded inside -->
+  <script src="script.js"></script>
 </body>
 </html>
