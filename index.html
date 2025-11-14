@@ -1,41 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tic-Tac-Toe</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>🎮 Tic-Tac-Toe </h1>
 
-  
-    <!-- Scoreboard -->
-    <div class="scoreboard">
-      <div><h3>X Wins</h3><p id="xWins">0</p></div>
-      <div><h3>O Wins</h3><p id="oWins">0</p></div>
-      <div><h3>Draws</h3><p id="draws">0</p></div>
+<div class="wrapper">
+
+    <div class="sidebar">
+        <h2 class="logo"></span>🎮 Tic-Tac-Toe</h2>
+
+        <div class="section">
+            <h3>Mode</h3>
+            <div class="btn-row">
+                <button id="pvpBtn" class="btn active">Vs Player</button>
+                <button id="aiBtn" class="btn">Vs Computer</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>AI Difficulty</h3>
+            <div class="btn-row">
+                <button class="btn small diff active" data-diff="easy">Easy</button>
+                <button class="btn small diff" data-diff="medium">Medium</button>
+                <button class="btn small diff" data-diff="hard">Hard</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Starting</h3>
+            <div class="btn-row">
+                <button id="startX" class="btn active">X</button>
+                <button id="startO" class="btn">O</button>
+            </div>
+        </div>
+
+        <div class="section scoreboard">
+            <h3>Scoreboard</h3>
+            <p>X Wins: <span id="scoreX">0</span></p>
+            <p>O Wins: <span id="scoreO">0</span></p>
+            <p>Draws: <span id="scoreD">0</span></p>
+        </div>
+
+        <div class="section">
+            <button id="undoBtn" class="btn full">Undo</button>
+            <button id="resetBtn" class="btn full danger">Reset</button>
+        </div>
     </div>
 
-    <!-- Game Board -->
-    <div class="board" id="board"></div>
+    <div class="game-area">
+        <p class="status" id="statusText">Player X’s turn</p>
 
-    <p id="status">Turn: X</p>
-
-    <div class="buttons">
-      <button id="restart">🔄 Restart</button>
-      <button id="toggleMode">💻 vs Computer</button>
-      <button id="clearData">🧹 Clear Data</button>
+        <div class="board" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
     </div>
 
-    <!-- Recent Matches -->
-    <div class="recent">
-      <h2>📊 Recent Matches</h2>
-      <ul id="recentList"></ul>
-    </div>
-  </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
