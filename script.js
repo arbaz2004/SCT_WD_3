@@ -1,175 +1,151 @@
-const boardEl = document.getElementById("board");
-const statusEl = document.getElementById("status");
-const restartBtn = document.getElementById("restart");
-const toggleModeBtn = document.getElementById("toggleMode");
-const clearDataBtn = document.getElementById("clearData");
-const recentList = document.getElementById("recentList");
+const cells = document.querySelectorAll(".cell");
+const statusText = document.getElementById("statusText");
 
-let board = Array(9).fill(null);
-let isXNext = true;
-let vsComputer = false;
-let winner = null;
+const scoreX = document.getElementById("scoreX");
+const scoreO = document.getElementById("scoreO");
+const scoreD = document.getElementById("scoreD");
 
-let profile = JSON.parse(localStorage.getItem("profile")) || { name: "Player 1", avatar: "", totalGames: 0 };
-let scores = JSON.parse(localStorage.getItem("scores")) || { X: 0, O: 0, Draws: 0 };
-let recent = JSON.parse(localStorage.getItem("recent")) || [];
+let board = ["", "", "", "", "", "", "", "", ""];
+let currentPlayer = "X";
+let vsAI = false;
+let aiDifficulty = "easy";
+let history = [];
 
-const playerNameEl = document.getElementById("playerName");
-const totalGamesEl = document.getElementById("totalGames");
-const avatarEl = document.getElementById("avatar");
-const avatarUpload = document.getElementById("avatarUpload");
-const editProfileBtn = document.getElementById("editProfile");
-const editSection = document.getElementById("editSection");
-const nameInput = document.getElementById("nameInput");
-const saveProfileBtn = document.getElementById("saveProfile");
-const cancelEditBtn = document.getElementById("cancelEdit");
+const winPatterns = [
+    [0,1,2], [3,4,5], [6,7,8],
+    [0,3,6], [1,4,7], [2,5,8],
+    [0,4,8], [2,4,6]
+];
 
-function init() {
-  renderBoard();
-  updateUI();
+// BUTTON HANDLING
+document.getElementById("pvpBtn").onclick = () => {
+    vsAI = false;
+    resetGame();
+    activateBtn("pvpBtn");
+};
+document.getElementById("aiBtn").onclick = () => {
+    vsAI = true;
+    resetGame();
+    activateBtn("aiBtn");
+};
+
+document.querySelectorAll(".diff").forEach(btn => {
+    btn.onclick = () => {
+        aiDifficulty = btn.dataset.diff;
+        activateGroup(".diff", btn);
+    };
+});
+
+document.getElementById("startX").onclick = () => {
+    currentPlayer = "X";
+    resetGame();
+    activateBtn("startX");
+};
+document.getElementById("startO").onclick = () => {
+    currentPlayer = "O";
+    resetGame();
+    activateBtn("startO");
+};
+
+document.getElementById("resetBtn").onclick = resetGame;
+
+document.getElementById("undoBtn").onclick = () => {
+    if (history.length > 0) {
+        board = history.pop();
+        updateBoard();
+    }
+};
+
+function activateBtn(id) {
+    document.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
 }
 
-function renderBoard() {
-  boardEl.innerHTML = "";
-  board.forEach((cell, i) => {
-    const div = document.createElement("div");
-    div.className = "cell";
-    div.textContent = cell || "";
-    div.addEventListener("click", () => handleClick(i));
-    boardEl.appendChild(div);
-  });
+function activateGroup(selector, activeBtn) {
+    document.querySelectorAll(selector).forEach(b => b.classList.remove("active"));
+    activeBtn.classList.add("active");
 }
 
-function handleClick(i) {
-  if (board[i] || winner) return;
-  board[i] = isXNext ? "X" : "O";
-  isXNext = !isXNext;
-  winner = checkWinner();
-  if (winner) updateScores(winner);
-  renderBoard();
-  updateUI();
+// GAME LOGIC
+cells.forEach((cell, index) => {
+    cell.onclick = () => playerMove(index);
+});
 
-  if (vsComputer && !isXNext && !winner) {
-    setTimeout(aiMove, 400);
-  }
+function playerMove(i) {
+    if (board[i] !== "" || checkWinner()) return;
+
+    saveHistory();
+    board[i] = currentPlayer;
+    updateBoard();
+
+    if (checkWinner()) return;
+
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+    if (vsAI && currentPlayer === "O") setTimeout(aiMove, 300);
 }
 
 function aiMove() {
-  const empty = board.map((v, i) => (v === null ? i : null)).filter((v) => v !== null);
-  const move = empty[Math.floor(Math.random() * empty.length)];
-  board[move] = "O";
-  isXNext = true;
-  winner = checkWinner();
-  if (winner) updateScores(winner);
-  renderBoard();
-  updateUI();
+    let move = aiSelectMove();
+    saveHistory();
+    board[move] = "O";
+    updateBoard();
+
+    if (checkWinner()) return;
+    currentPlayer = "X";
+}
+
+function aiSelectMove() {
+    if (aiDifficulty === "easy") {
+        let available = board.map((v,i)=> v===""?i:null).filter(v=>v!==null);
+        return available[Math.floor(Math.random()*available.length)];
+    }
+    // Add medium/hard later
+}
+
+function updateBoard() {
+    cells.forEach((cell, i) => {
+        cell.textContent = board[i];
+    });
+    statusText.textContent = `Player ${currentPlayer}'s turn`;
 }
 
 function checkWinner() {
-  const combos = [
-    [0,1,2],[3,4,5],[6,7,8],
-    [0,3,6],[1,4,7],[2,5,8],
-    [0,4,8],[2,4,6]
-  ];
-  for (let [a,b,c] of combos) {
-    if (board[a] && board[a] === board[b] && board[a] === board[c]) return board[a];
-  }
-  if (!board.includes(null)) return "Draw";
-  return null;
-}
-
-function updateScores(result) {
-  if (result === "Draw") scores.Draws++;
-  else scores[result]++;
-  profile.totalGames++;
-  recent.unshift({ winner: result, time: new Date().toLocaleTimeString() });
-  recent = recent.slice(0, 5);
-  saveData();
-}
-
-function updateUI() {
-  document.getElementById("xWins").textContent = scores.X;
-  document.getElementById("oWins").textContent = scores.O;
-  document.getElementById("draws").textContent = scores.Draws;
-  playerNameEl.textContent = profile.name;
-  totalGamesEl.textContent = profile.totalGames;
-  avatarEl.src = profile.avatar || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-
-  statusEl.classList.remove("winner-announce", "draw-announce");
-
-  if (winner) {
-    if (winner === "Draw") {
-      statusEl.textContent = "🤝 It's a Draw!";
-      statusEl.classList.add("draw-announce");
-    } else {
-      statusEl.textContent = `🏆 Winner: ${winner}`;
-      statusEl.classList.add("winner-announce");
+    for (let p of winPatterns) {
+        const [a,b,c] = p;
+        if (board[a] && board[a]===board[b] && board[b]===board[c]) {
+            highlight(p);
+            declareWinner(board[a]);
+            return true;
+        }
     }
-  } else {
-    statusEl.textContent = `Turn: ${isXNext ? "X" : "O"}`;
-  }
-
-  recentList.innerHTML = recent
-    .map((r) => `<li><span>${r.winner === "Draw" ? "🤝 Draw" : `🏆 ${r.winner} Won`}</span><span>${r.time}</span></li>`)
-    .join("");
+    if (!board.includes("")) {
+        statusText.textContent = "Draw!";
+        scoreD.textContent = parseInt(scoreD.textContent) + 1;
+        return true;
+    }
+    return false;
 }
 
-
-function restartGame() {
-  board = Array(9).fill(null);
-  isXNext = true;
-  winner = null;
-  renderBoard();
-  updateUI();
+function highlight(pattern) {
+    pattern.forEach(i => cells[i].classList.add("win"));
 }
 
-function toggleMode() {
-  vsComputer = !vsComputer;
-  toggleModeBtn.textContent = vsComputer ? "👥 2 Player Mode" : "💻 vs Computer";
+function declareWinner(winner) {
+    statusText.textContent = `Player ${winner} wins!`;
+    if (winner === "X") scoreX.textContent = parseInt(scoreX.textContent) + 1;
+    else scoreO.textContent = parseInt(scoreO.textContent) + 1;
 }
 
-function clearData() {
-  localStorage.clear();
-  scores = { X: 0, O: 0, Draws: 0 };
-  profile = { name: "Player 1", avatar: "", totalGames: 0 };
-  recent = [];
-  restartGame();
-  updateUI();
+function resetGame() {
+    board = ["","","","","","","","",""];
+    currentPlayer = "X";
+    history = [];
+    cells.forEach(c => c.textContent = "");
+    cells.forEach(c => c.classList.remove("win"));
+    statusText.textContent = "Player X’s turn";
 }
 
-function saveData() {
-  localStorage.setItem("scores", JSON.stringify(scores));
-  localStorage.setItem("profile", JSON.stringify(profile));
-  localStorage.setItem("recent", JSON.stringify(recent));
+function saveHistory() {
+    history.push([...board]);
 }
-
-// Profile editing
-editProfileBtn.onclick = () => (editSection.classList.toggle("hidden"));
-saveProfileBtn.onclick = () => {
-  const name = nameInput.value.trim();
-  if (name) profile.name = name;
-  profile.avatar = avatarEl.src;
-  saveData();
-  editSection.classList.add("hidden");
-  updateUI();
-};
-cancelEditBtn.onclick = () => editSection.classList.add("hidden");
-
-avatarUpload.onchange = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      avatarEl.src = ev.target.result;
-      profile.avatar = ev.target.result;
-      saveData();
-    };
-    reader.readAsDataURL(file);
-  }
-};
-
-restartBtn.onclick = restartGame;
-toggleModeBtn.onclick = toggleMode;
-clearDataBtn.onclick = clearData;
-
-init();
