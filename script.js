@@ -9,7 +9,6 @@ let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let vsAI = false;
 let aiDifficulty = "easy";
-let history = [];
 
 const winPatterns = [
     [0,1,2], [3,4,5], [6,7,8],
@@ -17,16 +16,17 @@ const winPatterns = [
     [0,4,8], [2,4,6]
 ];
 
-// BUTTON HANDLING
+// BUTTONS
 document.getElementById("pvpBtn").onclick = () => {
     vsAI = false;
+    activate("pvpBtn");
     resetGame();
-    activateBtn("pvpBtn");
 };
+
 document.getElementById("aiBtn").onclick = () => {
     vsAI = true;
+    activate("aiBtn");
     resetGame();
-    activateBtn("aiBtn");
 };
 
 document.querySelectorAll(".diff").forEach(btn => {
@@ -38,25 +38,19 @@ document.querySelectorAll(".diff").forEach(btn => {
 
 document.getElementById("startX").onclick = () => {
     currentPlayer = "X";
+    activate("startX");
     resetGame();
-    activateBtn("startX");
 };
 document.getElementById("startO").onclick = () => {
     currentPlayer = "O";
+    activate("startO");
     resetGame();
-    activateBtn("startO");
 };
 
 document.getElementById("resetBtn").onclick = resetGame;
 
-document.getElementById("undoBtn").onclick = () => {
-    if (history.length > 0) {
-        board = history.pop();
-        updateBoard();
-    }
-};
-
-function activateBtn(id) {
+// ACTIVATE HELPERS
+function activate(id) {
     document.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
@@ -66,15 +60,14 @@ function activateGroup(selector, activeBtn) {
     activeBtn.classList.add("active");
 }
 
-// GAME LOGIC
-cells.forEach((cell, index) => {
-    cell.onclick = () => playerMove(index);
+// CELL CLICK HANDLER
+cells.forEach((cell, i) => {
+    cell.onclick = () => handleMove(i);
 });
 
-function playerMove(i) {
+function handleMove(i) {
     if (board[i] !== "" || checkWinner()) return;
 
-    saveHistory();
     board[i] = currentPlayer;
     updateBoard();
 
@@ -82,43 +75,38 @@ function playerMove(i) {
 
     currentPlayer = currentPlayer === "X" ? "O" : "X";
 
-    if (vsAI && currentPlayer === "O") setTimeout(aiMove, 300);
+    if (vsAI && currentPlayer === "O")
+        setTimeout(aiMove, 350);
 }
 
 function aiMove() {
-    let move = aiSelectMove();
-    saveHistory();
+    let available = board.map((v,i)=> v===""?i:null).filter(v=>v!==null);
+
+    let move = available[Math.floor(Math.random()*available.length)];
+
     board[move] = "O";
     updateBoard();
 
-    if (checkWinner()) return;
-    currentPlayer = "X";
+    if (!checkWinner()) currentPlayer = "X";
 }
 
-function aiSelectMove() {
-    if (aiDifficulty === "easy") {
-        let available = board.map((v,i)=> v===""?i:null).filter(v=>v!==null);
-        return available[Math.floor(Math.random()*available.length)];
-    }
-    // Add medium/hard later
-}
-
+// UPDATE UI
 function updateBoard() {
-    cells.forEach((cell, i) => {
-        cell.textContent = board[i];
-    });
+    cells.forEach((c, i) => c.textContent = board[i]);
     statusText.textContent = `Player ${currentPlayer}'s turn`;
 }
 
+// CHECK WINNER
 function checkWinner() {
     for (let p of winPatterns) {
         const [a,b,c] = p;
-        if (board[a] && board[a]===board[b] && board[b]===board[c]) {
+        if (board[a] && board[a] === board[b] && board[b] === board[c]) {
             highlight(p);
             declareWinner(board[a]);
             return true;
         }
     }
+
     if (!board.includes("")) {
         statusText.textContent = "Draw!";
         scoreD.textContent = parseInt(scoreD.textContent) + 1;
@@ -132,20 +120,17 @@ function highlight(pattern) {
 }
 
 function declareWinner(winner) {
-    statusText.textContent = `Player ${winner} wins!`;
+    statusText.textContent = `${winner} Wins!`;
     if (winner === "X") scoreX.textContent = parseInt(scoreX.textContent) + 1;
     else scoreO.textContent = parseInt(scoreO.textContent) + 1;
 }
 
+// RESET GAME
 function resetGame() {
     board = ["","","","","","","","",""];
-    currentPlayer = "X";
-    history = [];
-    cells.forEach(c => c.textContent = "");
-    cells.forEach(c => c.classList.remove("win"));
-    statusText.textContent = "Player X’s turn";
-}
-
-function saveHistory() {
-    history.push([...board]);
+    cells.forEach(c => {
+        c.textContent = "";
+        c.classList.remove("win");
+    });
+    statusText.textContent = `Player ${currentPlayer}'s turn`;
 }
