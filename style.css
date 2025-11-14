@@ -7,12 +7,12 @@ body {
     text-align: center;
 }
 
-/* MAIN CONTAINER (Center Everything Vertically) */
+/* CENTER EVERYTHING CLEANLY */
 .container {
     width: 100%;
-    max-width: 900px;
-    margin: auto;
-    padding: 40px 0;
+    max-width: 850px;
+    margin: 0 auto;
+    padding-top: 20px;
 }
 
 /* TITLE */
@@ -23,11 +23,6 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
-    align-items: center;
-}
-
-.title img {
-    width: 30px;
 }
 
 /* SECTIONS */
@@ -40,17 +35,16 @@ body {
     font-size: 18px;
 }
 
-/* BUTTON ROW */
+/* BUTTONS */
 .btn-row {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-/* BUTTONS */
 .btn {
     padding: 8px 16px;
-    font-size: 15px;
+    font-size: 14px;
     background: rgba(255,255,255,0.15);
     border: none;
     color: white;
@@ -70,19 +64,21 @@ body {
 /* SCOREBOARD */
 .scoreboard-box {
     background: rgba(255,255,255,0.15);
-    display: inline-block;
     padding: 10px 20px;
+    margin: 0 auto 15px;
     border-radius: 10px;
-    margin-bottom: 20px;
     font-size: 18px;
 }
 
-/* BOARD */
+/* ————————————————
+   BOARD FIX — THIS IS THE MAIN FIX
+——————————————— */
 .board {
     width: 480px;
     height: 480px;
-    margin: 35px auto 0;
 
+    margin: 20px auto 0; /* FIXED → moves board UP */
+    
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
@@ -99,8 +95,8 @@ body {
 
     font-size: 65px;
     font-weight: bold;
-
     cursor: pointer;
+
     transition: 0.2s;
 }
 
@@ -108,25 +104,17 @@ body {
     transform: scale(1.05);
 }
 
-/* WIN HIGHLIGHT */
-.win {
-    background: rgba(0,255,150,0.35) !important;
-    color: #00ff9d !important;
-}
-
 /* STATUS TEXT */
 .status {
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 20px;
-    font-weight: 500;
 }
 
-/* UNDO + RESET */
+/* Undo + Reset buttons */
 .actions {
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .actions .btn {
-    font-size: 14px;
-    padding: 6px 14px;
+    padding: 5px 14px;
 }
