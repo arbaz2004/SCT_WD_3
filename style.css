@@ -1,120 +1,134 @@
-/* GLOBAL */
+/* GLOBAL ------------------------------------------------------ */
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg, #141a38, #2f225a);
-    color: #fff;
-    text-align: center;
+    background: linear-gradient(135deg, #0d0f17, #1a1f3c);
+    color: white;
 }
 
-/* CENTER EVERYTHING CLEANLY */
-.container {
-    width: 100%;
-    max-width: 850px;
-    margin: 0 auto;
-    padding-top: 20px;
-}
-
-/* TITLE */
-.title {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 15px;
+/* LAYOUT ------------------------------------------------------ */
+.wrapper {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    gap: 40px;
+    padding: 40px;
+    box-sizing: border-box;
 }
 
-/* SECTIONS */
+/* SIDEBAR ----------------------------------------------------- */
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 25px;
+    height: fit-content;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* SECTIONS ---------------------------------------------------- */
 .section {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .section h3 {
+    font-size: 16px;
+    opacity: 0.8;
     margin-bottom: 10px;
-    font-size: 18px;
 }
 
-/* BUTTONS */
+/* BUTTONS ----------------------------------------------------- */
 .btn-row {
     display: flex;
-    justify-content: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    background: rgba(255,255,255,0.15);
-    border: none;
+    padding: 10px 16px;
+    background: #22252f;
     color: white;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s;
 }
 
+.btn.small {
+    padding: 8px 14px;
+}
+
 .btn:hover {
-    background: rgba(255,255,255,0.25);
+    background: #2c2f38;
 }
 
 .btn.active {
     background: #4b7bff;
 }
 
-/* SCOREBOARD */
-.scoreboard-box {
-    background: rgba(255,255,255,0.15);
-    padding: 10px 20px;
-    margin: 0 auto 15px;
-    border-radius: 10px;
-    font-size: 18px;
+.btn.full {
+    width: 100%;
 }
 
-/* ————————————————
-   BOARD FIX — THIS IS THE MAIN FIX
-——————————————— */
-.board {
-    width: 480px;
-    height: 480px;
+.btn.danger {
+    background: #ff4757;
+}
 
-    margin: 20px auto 0; /* FIXED → moves board UP */
-    
+.btn.danger:hover {
+    background: #e63b4b;
+}
+
+/* GAME AREA (RIGHT SIDE) ------------------------------------- */
+.game-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* STATUS ------------------------------------------------------ */
+.status {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* BOARD -------------------------------------------------------- */
+.board {
+    width: 540px;
+    height: 540px;
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
+
+    margin-top: 10px; /* small spacing only */
 }
 
-/* CELLS */
+/* CELLS ------------------------------------------------------- */
 .cell {
-    background: linear-gradient(135deg, #4a3aff, #24a6ff);
+    background: #1c1f27;
     border-radius: 12px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    font-size: 65px;
+    font-size: 70px;
     font-weight: bold;
     cursor: pointer;
 
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 .cell:hover {
+    background: #262a33;
+}
+
+/* WIN HIGHLIGHT ----------------------------------------------- */
+.win {
+    background: rgba(0, 255, 120, 0.27) !important;
+    color: #00ff99 !important;
     transform: scale(1.05);
-}
-
-/* STATUS TEXT */
-.status {
-    margin-top: 12px;
-    font-size: 20px;
-}
-
-/* Undo + Reset buttons */
-.actions {
-    margin-top: 10px;
-}
-
-.actions .btn {
-    padding: 5px 14px;
 }
