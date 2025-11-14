@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg, #0d0f17, #1a1f3c);
+    background: linear-gradient(135deg, #0b0e2d, #1c1f44);
     color: white;
 }
 
@@ -24,8 +24,8 @@ body {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 700;
     margin-bottom: 25px;
 }
 
@@ -57,7 +57,7 @@ body {
 }
 
 .btn.small {
-    padding: 8px 14px;
+    padding: 7px 12px;
 }
 
 .btn:hover {
@@ -80,7 +80,7 @@ body {
     background: #e63b4b;
 }
 
-/* GAME AREA (RIGHT SIDE) ------------------------------------- */
+/* GAME AREA --------------------------------------------------- */
 .game-area {
     flex: 1;
     display: flex;
@@ -88,28 +88,27 @@ body {
     align-items: center;
 }
 
-/* STATUS ------------------------------------------------------ */
 .status {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 22px;
+    margin-bottom: 15px;
 }
 
 /* BOARD -------------------------------------------------------- */
 .board {
-    width: 540px;
-    height: 540px;
+    width: 520px;
+    height: 520px;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    gap: 18px;
 
-    margin-top: 10px; /* small spacing only */
+    margin-top: 10px;
 }
 
 /* CELLS ------------------------------------------------------- */
 .cell {
-    background: #1c1f27;
-    border-radius: 12px;
+    background: linear-gradient(135deg, #3a67ff, #7d00ff);
+    border-radius: 14px;
 
     display: flex;
     justify-content: center;
@@ -117,18 +116,18 @@ body {
 
     font-size: 70px;
     font-weight: bold;
-    cursor: pointer;
+    color: white;
 
-    transition: 0.2s ease;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .cell:hover {
-    background: #262a33;
+    background: linear-gradient(135deg, #4a78ff, #9a22ff);
 }
 
-/* WIN HIGHLIGHT ----------------------------------------------- */
+/* WIN EFFECT -------------------------------------------------- */
 .win {
-    background: rgba(0, 255, 120, 0.27) !important;
-    color: #00ff99 !important;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #00ff9d, #00c76d) !important;
+    color: #003b25 !important;
 }
