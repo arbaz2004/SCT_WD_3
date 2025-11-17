@@ -1,96 +1,123 @@
 /* GLOBAL */
 body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #0b0e2d, #1c1f44);
-  color: white;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #0b0e2d, #1c1f44);
+    color: white;
 }
 
 /* LAYOUT */
 .wrapper {
-  display: flex;
-  gap: 40px;
-  padding: 24px;
-  box-sizing: border-box;
-  align-items: flex-start;
+    display: flex;
+    gap: 40px;
+    padding: 40px;
 }
 
 /* SIDEBAR */
 .sidebar {
-  width: 280px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    width: 280px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 25px;
 }
 
 .logo {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 18px;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 25px;
 }
 
-.section { margin-bottom: 18px; }
-.section h3 { margin: 0 0 8px 0; font-size: 15px; color: #e8eefc; opacity: 0.9; }
+.section {
+    margin-bottom: 25px;
+}
+
+.section h3 {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
 
 /* BUTTONS */
-.btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.btn {
-  padding: 8px 14px;
-  background: #22252f;
-  color: white;
-  border: none;
-  border-radius: 9px;
-  cursor: pointer;
-  transition: background .15s, transform .08s;
+.btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
-.btn.small { padding: 6px 10px; font-size: 14px; }
+
+.btn {
+    padding: 10px 16px;
+    background: #22252f;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn.small { padding: 7px 12px; }
+.btn:hover { background: #2c2f38; }
+.btn.active { background: #4b7bff; }
 .btn.full { width: 100%; }
-.btn:hover { background: #2c2f38; transform: translateY(-1px); }
-.btn.active { background: #3b82f6; box-shadow: 0 6px 18px rgba(59,130,246,0.12); }
 .btn.danger { background: #ff4757; }
 .btn.danger:hover { background: #e63b4b; }
 
 /* GAME AREA */
-.game-area { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.game-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-/* STATUS */
-.status { font-size: 20px; margin-bottom: 12px; }
+.status {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
 
 /* BOARD */
 .board {
-  width: 520px;
-  height: 520px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 6px;
+    width: 520px;
+    height: 520px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
 }
 
 /* CELLS */
 .cell {
-  background: linear-gradient(135deg,#3a67ff,#7d00ff);
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 66px;
-  font-weight: 700;
-  color: white;
-  user-select: none;
-  cursor: pointer;
-  transition: transform .12s, box-shadow .12s;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+    background: linear-gradient(135deg, #3a67ff, #7d00ff);
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
-.cell:active { transform: scale(.98); }
-.cell:focus { outline: 3px solid rgba(255,255,255,0.06); }
+
+.cell:hover {
+    transform: scale(1.05);
+}
 
 /* WIN */
-.win { background: linear-gradient(135deg,#00ff9d,#00c76d) !important; color: #003b25 !important; box-shadow: 0 12px 30px rgba(0,199,109,0.12); }
+.win {
+    background: linear-gradient(135deg, #00ff9d, #00c76d) !important;
+    color: #003b25 !important;
+}
 
-/* RESPONSIVE */
-@media (max-width: 880px) {
-  .wrapper { flex-direction: column; align-items: center; }
-  .sidebar { width: 92%; max-width: 420px; }
-  .board { width: 92vmin; height: 92vmin; max-width: 520px; max-height: 520px; }
+/* NEW GAME BUTTON */
+.new-game-btn {
+    margin-top: 20px;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #3a67ff, #7d00ff);
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.new-game-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(125, 0, 255, 0.4);
 }
